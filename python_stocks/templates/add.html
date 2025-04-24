@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>在庫管理アプリ</title>
+</head>
+
+<body>
+    <h1>在庫管理アプリ</h1>
+    <script>
+      // ページ読み込み時に製品番号の入力フィールドにフォーカスを設定
+      window.onload = function() {
+          document.getElementById("product-number").focus();
+      };
+    </script>
+    <form method="post" action="{{url_for('search_add') }}">
+        <input type = "text" id="product-number" name="number" required>
+        <input type="submit" value="検索">
+    </form>
+    <a href="{{ url_for('sort_by_arrival_date2')}}">更新日時で並び替え</a>
+    <br>
+    <a href="{{ url_for('sort_by_quantity2')}}">数量で並び替え</a>
+    <table border="1">
+          <tr>
+            <th>製品名</th>
+            <th>度数</th>
+            <th>製品番号</th>
+            <th>数量</th>
+            <th>更新日時</th>
+            <th>メモ</th>
+          </tr>
+          {% for stock in stocks %}
+           <tr>
+            <td>{{stock.name}}</td>
+            <td>{{stock.degree}}</td>
+            <td>{{stock.number}}</td>
+            <td>{{stock.quantity}}</td>
+            <td>{{stock.arrival_date}}</td>
+            <td>{{stock.memo}}</td>
+            <td>
+            <form method="post" action="{{ url_for('add_entry') }}">
+                <input type = "text" name = "quantity" value = 1 required>
+                <input type="hidden" name="number" value="{{ stock.number }}">
+                <input type="submit" value="追加">
+            </form>
+            </td>
+           </tr>
+          {%endfor%}
+        </table>
+        
+    </form>
+
+    <a href="{{ url_for('index')}}">トップに戻る</a>
+</body>
+
+
+
+</html>
+
+

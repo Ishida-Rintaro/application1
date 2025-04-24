@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>在庫管理アプリ</title>
+</head>
+<body>
+    <h1>在庫管理アプリ</h1>
+    <p>このシステムは、在庫の管理を行うためのものです。</p>
+    <p>在庫の登録、交換、削除ができます。</p>
+
+    <a href="{{ url_for('register')}}">初期登録</a>
+    <a href="{{ url_for('add')}}">追加</a>
+    <a href="{{ url_for('delete')}}">削除</a>
+    <a href="{{ url_for('edit')}}">編集</a>
+    <h2>在庫一覧</h2>
+    <a href="{{ url_for('sort_by_arrival_date')}}">更新日時で並び替え</a>
+    <br>
+    <a href="{{ url_for('sort_by_quantity')}}">数量で並び替え</a>
+    <table border="1">
+        <tr>
+            <th>製品名</th>
+            <th>度数</th>
+            <th>製品番号</th>
+            <th>数量</th>
+            <th>更新日時</th>
+            <th>メモ</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.name }}</td>
+            <td>{{ stock.degree }}</td>
+            <td>{{ stock.number }}</td>
+            <td>{{ stock.quantity }}</td>
+            <td>{{ stock.arrival_date }}</td>
+            <td>{{ stock.memo }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</body>
+
+</html>
